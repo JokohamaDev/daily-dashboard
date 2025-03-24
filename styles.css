@@ -1,0 +1,469 @@
+/* CSS Variables for Theming */
+:root {
+    /* Light Theme (default) */
+    --bg-color: #ffffff;
+    --card-bg: #f5f7f9;
+    --card-bg-hover: #f1f3f9;
+    --text-color: #333333;
+    --heading-color: #2c3e50;
+    --accent-color: #3498db;
+    --border-color: #eaeaea;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+    /* Dark Theme */
+    --bg-color: #1e1e1e;
+    --card-bg: #111111;
+    --card-bg-hover: #161616;
+    --text-color: #e0e0e0;
+    --heading-color: #f0f0f0;
+    --accent-color: #64b5f6;
+    --border-color: #333333;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 2rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    /* box-shadow: var(--shadow); */
+}
+
+h1, h2, h3 {
+    color: var(--heading-color);
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bento-item {
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    /* box-shadow: var(--shadow); */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+}
+
+.bento-item:hover {
+    /* transform: translateY(-5px); */
+    /* box-shadow: var(--hover-shadow); */
+    background-color: var(--card-bg-hover);
+}
+
+.bento-item h2 {
+    color: var(--heading-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+/* Bento Item Sizes */
+.c1 {
+    grid-column: span 1;
+}
+.c2 {
+    grid-column: span 2;
+}
+.c4 {
+    grid-column: span 4;
+}
+.c6 {
+    grid-column: span 6;
+}
+.c8 {
+    grid-column: span 8;
+}
+.c12 {
+    grid-column: span 12;
+}
+
+.r1 {
+    grid-row: span 1;
+}
+.r2 {
+    grid-row: span 2;
+}
+.r3 {
+    grid-row: span 3;
+}
+.r4 {
+    grid-row: span 4;
+}
+
+/* Theme Toggle Switch */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Widget general styles */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.description {
+    opacity: 0.8;
+    font-size: 0.75rem;
+}
+
+/* Weather widget styles */
+.weather-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-icon {
+    font-size: 3rem;
+    margin-right: 1rem;
+}
+
+.weather-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.temperature {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.condition {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.task-list {
+    list-style: none;
+}
+
+.task {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.task input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.notes-content {
+    height: calc(100% - 50px);
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    resize: none;
+}
+
+.pomodoro-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 50px);
+}
+
+#timer {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.news-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.news-item {
+    flex: 1;
+}
+
+.news-item h3 {
+    margin-bottom: 5px;
+    color: var(--accent-color);
+}
+
+/* Air Quality Widget Styles */
+.air-quality-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.air-quality-icon {
+    font-size: 3rem;
+    margin-right: 1rem;
+}
+
+.air-quality-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Clock Widget Styles */
+.clock-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.clock-display {
+    display: flex;
+    align-items: baseline;
+}
+
+#seconds {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-left: 5px;
+}
+
+.timezone-info {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Weather Widget Styles */
+.weather-forecast {
+    margin-top: 1rem;
+    padding: 0 10px;
+}
+
+.weather-forecast h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.forecast-chart {
+    height: 100px;
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25rem;
+    padding-bottom: 0.5rem;
+}
+
+.forecast-bar {
+    flex: 1;
+    min-width: 30px;
+    background: var(--accent-color);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    transition: height 0.3s ease;
+}
+
+.forecast-bar-label {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+.forecast-bar-value {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+/* Air Quality Widget Styles */
+.air-quality-forecast {
+    margin-top: 1rem;
+    padding: 0 10px;
+}
+
+.air-quality-forecast h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.air-quality-bar {
+    background: linear-gradient(to right, #00e400, #ffff00, #ff7e00, #ff0000, #99004c, #7e0023);
+    opacity: 0.8;
+}
+
+/* Loading animations */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+#location:empty::after,
+#clock:empty::after,
+#date:empty::after,
+.weather-content:empty::after {
+    content: "Loading...";
+    animation: pulse 1.5s infinite;
+    opacity: 0.6;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    /* box-shadow: var(--shadow); */
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .bento-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .c2 {
+        grid-column: span 1;
+    }
+
+    .c4 {
+        grid-column: span 2;
+    }
+
+    .c6, .c8, .c12 {
+        grid-column: span 4;
+    }
+}
+
+@media (max-width: 480px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .c2, .c4, .c6, .c8, .c12 {
+        grid-column: span 1;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Daily Dashboard</h1>
+        <div class="theme-toggle-container">
+            <label class="theme-toggle" for="theme-switch">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+    
+    <main class="bento-grid">
+        <!-- widget - Location -->
+        <div class="bento-item c4 r1">
+            <h2>Location</h2>
+            <div class="location-content">
+                <div id="location-city" class="title">Loading city...</div>
+                <div id="location" class="description">Loading coordinates...</div>
+            </div>
+        </div>
+
+        <!-- widget - Clock -->
+        <div class="bento-item c2 r1">
+            <h2>Clock</h2>
+            <div class="clock-content">
+                <div class="clock-display">
+                    <span id="clock" class="title">Loading...</span>
+                    <span id="seconds">00</span>
+                </div>
+                <div id="timezone" class="description">Loading timezone...</div>
+            </div>
+        </div>
+        
+        <!-- widget - Weather -->
+        <div class="bento-item c4 r2">
+            <h2>Weather</h2>
+            <div class="weather-content">
+                <div class="weather-icon">🌤️</div>
+                <div class="weather-info">
+                    <div id="temperature" class="title">--°C</div>
+                    <div id="WTI" class="description">Loading weather...</div>
+                </div>
+            </div>
+            <div class="weather-forecast">
+                <h3>Today's Forecast</h3>
+                <div class="forecast-chart" id="weather-chart">
+                    <!-- Weather chart will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- widget - Air Quality -->
+        <div class="bento-item c4 r2">
+            <h2>Air Quality</h2>
+            <div class="air-quality-content">
+                <div class="air-quality-icon"></div>
+                <div class="air-quality-info">
+                    <div id="air-quality-index" class="title">--</div>
+                    <div id="AQI" class="description">Loading air quality...</div>
+                </div>
+            </div>
+            <div class="air-quality-forecast">
+                <h3>Today's Air Quality</h3>
+                <div class="forecast-chart" id="air-quality-chart">
+                    <!-- Air quality chart will be generated here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- widget - Calendar -->
+        <div class="bento-item c4 r1">
+            <h2>Calendar</h2>
+            <div id="date" class="title">Loading...</div>
+        </div>
+        
+        <!-- widget - Tasks -->
+        <div class="bento-item c4 r2">
+            <h2>Tasks</h2>
+            <ul class="task-list">
+                <li class="task">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">Complete project proposal</label>
+                </li>
+                <li class="task">
+                    <input type="checkbox" id="task2">
+                    <label for="task2">Schedule team meeting</label>
+                </li>
+                <li class="task">
+                    <input type="checkbox" id="task3">
+                    <label for="task3">Review client feedback</label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- widget - Notes -->
+        <div class="bento-item c4 r2">
+            <h2>Quick Notes</h2>
+            <div class="notes-content">
+                <textarea placeholder="Write your notes here..."></textarea>
+            </div>
+        </div>
+        
+        <!-- widget - Pomodoro -->
+        <div class="bento-item c2 r1">
+            <h2>Pomodoro</h2>
+            <div class="pomodoro-timer">
+                <div id="timer">25:00</div>
+                <button id="start-timer">Start</button>
+            </div>
+        </div>
+        
+        <!-- widget - News -->
+        <div class="bento-item c6 r2">
+            <h2>Latest News</h2>
+            <div class="news-content">
+                <div class="news-item">
+                    <h3>Tech Update</h3>
+                    <p>New advancements in AI technology announced today.</p>
+                </div>
+                <div class="news-item">
+                    <h3>Science News</h3>
+                    <p>Researchers discover potential breakthrough in renewable energy.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Daily Dashboard</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
