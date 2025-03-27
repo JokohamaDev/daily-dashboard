@@ -9,23 +9,9 @@
 <body>
     <header>
         <h1>Daily Dashboard</h1>
-        <div class="theme-toggle-container">
-            <label class="theme-toggle" for="theme-switch">
-                <input type="checkbox" id="theme-switch">
-                <span class="slider round"></span>
-            </label>
-        </div>
     </header>
     
     <main class="bento-grid">
-        <!-- widget - Location -->
-        <div class="bento-item c4 r1">
-            <h2>Location</h2>
-            <div class="location-content">
-                <div id="location-city" class="title">Loading city...</div>
-                <div id="location" class="description">Loading coordinates...</div>
-            </div>
-        </div>
 
         <!-- widget - Clock -->
         <div class="bento-item c2 r1">
@@ -35,12 +21,40 @@
                     <span id="clock" class="title">Loading...</span>
                     <span id="seconds">00</span>
                 </div>
-                <div id="timezone" class="description">Loading timezone...</div>
+                <div id="date" class="description">Loading timezone...</div>
+            </div>
+        </div>
+
+        <!-- widget - RandomFact -->
+        <div class="bento-item c4 r1">
+            <h2>Random Fact</h2>
+            <div class="title">🤓</div>
+            <div id="random-fact" class="description">Loading fact...</div>
+        </div>
+
+        <!-- widget - Light Switch -->
+        <div class="bento-item c2 r1">
+            <h2>Dark Theme</h2>
+            <div class="theme-toggle-container">
+                <label class="theme-toggle" for="theme-switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- widget - Trending -->
+        <div class="bento-item c2 r2">
+            <h2>Trending</h2>
+            <div class="trending-content">
+                <ul id="trending-list" class="trending-list">
+                    <li class="trending-item">Loading trends...</li>
+                </ul>
             </div>
         </div>
         
         <!-- widget - Weather -->
-        <div class="bento-item c4 r2">
+        <div class="bento-item c2 r2">
             <h2>Weather</h2>
             <div class="weather-content">
                 <div class="weather-icon">🌤️</div>
@@ -50,7 +64,7 @@
                 </div>
             </div>
             <div class="weather-forecast">
-                <h3>Today's Forecast</h3>
+                <h3>Forecast</h3>
                 <div class="forecast-chart" id="weather-chart">
                     <!-- Weather chart will be generated here -->
                 </div>
@@ -58,7 +72,7 @@
         </div>
 
         <!-- widget - Air Quality -->
-        <div class="bento-item c4 r2">
+        <div class="bento-item c2 r2">
             <h2>Air Quality</h2>
             <div class="air-quality-content">
                 <div class="air-quality-icon"></div>
@@ -68,36 +82,32 @@
                 </div>
             </div>
             <div class="air-quality-forecast">
-                <h3>Today's Air Quality</h3>
+                <h3>Forecast</h3>
                 <div class="forecast-chart" id="air-quality-chart">
                     <!-- Air quality chart will be generated here -->
                 </div>
             </div>
         </div>
-        
-        <!-- widget - Calendar -->
+
+        <!-- widget - Location -->
         <div class="bento-item c4 r1">
-            <h2>Calendar</h2>
-            <div id="date" class="title">Loading...</div>
+            <h2>Location</h2>
+            <div class="location-content">
+                <div id="location-city" class="title">Loading city...</div>
+                <div id="location" class="description">Loading coordinates...</div>
+            </div>
         </div>
         
         <!-- widget - Tasks -->
         <div class="bento-item c4 r2">
             <h2>Tasks</h2>
-            <ul class="task-list">
-                <li class="task">
-                    <input type="checkbox" id="task1">
-                    <label for="task1">Complete project proposal</label>
-                </li>
-                <li class="task">
-                    <input type="checkbox" id="task2">
-                    <label for="task2">Schedule team meeting</label>
-                </li>
-                <li class="task">
-                    <input type="checkbox" id="task3">
-                    <label for="task3">Review client feedback</label>
-                </li>
-            </ul>
+            <div class="tasks-content">
+                <div id="tasks-list"></div>
+                <div class="task-input-container">
+                    <input type="text" id="task-input" placeholder="Add a new task...">
+                    <button id="add-task-btn">+</button>
+                </div>
+            </div>
         </div>
         
         <!-- widget - Notes -->
@@ -105,15 +115,6 @@
             <h2>Quick Notes</h2>
             <div class="notes-content">
                 <textarea placeholder="Write your notes here..."></textarea>
-            </div>
-        </div>
-        
-        <!-- widget - Pomodoro -->
-        <div class="bento-item c2 r1">
-            <h2>Pomodoro</h2>
-            <div class="pomodoro-timer">
-                <div id="timer">25:00</div>
-                <button id="start-timer">Start</button>
             </div>
         </div>
         

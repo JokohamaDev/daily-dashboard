@@ -249,33 +249,7 @@ textarea {
     resize: none;
 }
 
-.pomodoro-timer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100% - 50px);
-}
-
-#timer {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-button {
-    padding: 8px 16px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
+/* Removed Pomodoro-related styles */
 
 .news-content {
     display: flex;
@@ -296,8 +270,7 @@ button:hover {
 .air-quality-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    justify-content: center;
 }
 
 .air-quality-icon {
@@ -316,7 +289,6 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
 }
 
 .clock-display {
@@ -339,7 +311,6 @@ button:hover {
 /* Weather Widget Styles */
 .weather-forecast {
     margin-top: 1rem;
-    padding: 0 10px;
 }
 
 .weather-forecast h3 {
@@ -355,7 +326,7 @@ button:hover {
     display: flex;
     align-items: flex-end;
     gap: 0.25rem;
-    padding-bottom: 0.5rem;
+    padding: 1.5rem 0;
 }
 
 .forecast-bar {
@@ -389,7 +360,6 @@ button:hover {
 /* Air Quality Widget Styles */
 .air-quality-forecast {
     margin-top: 1rem;
-    padding: 0 10px;
 }
 
 .air-quality-forecast h3 {
@@ -401,6 +371,49 @@ button:hover {
 .air-quality-bar {
     background: linear-gradient(to right, #00e400, #ffff00, #ff7e00, #ff0000, #99004c, #7e0023);
     opacity: 0.8;
+}
+
+/* Trending Widget Styles */
+.trending-content {
+    height: calc(100% - 3rem);
+    overflow-y: auto;
+}
+
+.trending-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trending-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.trending-item:last-child {
+    border-bottom: none;
+}
+
+.trend-number {
+    margin-right: 0.5rem;
+    opacity: 0.4;
+}
+
+.trending-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    opacity: 0.8;
+    flex-grow: 1;
+}
+
+.trending-item a:hover {
+    color: var(--accent-color);
+    opacity: 1;
 }
 
 /* Loading animations */

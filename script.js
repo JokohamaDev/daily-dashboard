@@ -36,7 +36,9 @@ function requestLocation() {
                 userLongitude = position.coords.longitude;
                 
                 // Update location display
-                locationElement.textContent = `Lat: ${userLatitude.toFixed(2)}°, Lon: ${userLongitude.toFixed(2)}°`;
+                if (locationElement) {
+                    locationElement.textContent = `Lat: ${userLatitude.toFixed(2)}°, Long: ${userLongitude.toFixed(2)}°`;
+                }
                 
                 // Get city name using reverse geocoding
                 getCityName(userLatitude, userLongitude);
@@ -52,8 +54,13 @@ function requestLocation() {
                 console.error("Geolocation error:", error);
                 
                 // Clear location-related widgets
-                locationElement.textContent = "Location unavailable";
-                locationCityElement.textContent = "No location";
+                if (locationElement) {
+                    locationElement.textContent = "Location unavailable";
+                }
+                
+                if (locationCityElement) {
+                    locationCityElement.textContent = "No location";
+                }
                 
                 // Reset global location variables
                 userLatitude = null;
@@ -74,8 +81,13 @@ function requestLocation() {
             }
         );
     } else {
-        locationElement.textContent = "Geolocation not supported";
-        locationCityElement.textContent = "No location";
+        if (locationElement) {
+            locationElement.textContent = "Geolocation not supported";
+        }
+        
+        if (locationCityElement) {
+            locationCityElement.textContent = "No location";
+        }
         
         // Clear weather and air quality widgets
         clearWeatherWidget();
@@ -135,7 +147,9 @@ function getCityName(latitude, longitude) {
                 userCountry = data.address.country || "Unknown country";
                 
                 // Display the location
-                locationCityElement.textContent = `${userCity}, ${userCountry}`;
+                if (locationCityElement) {
+                    locationCityElement.textContent = `${userCity}`;
+                }
                 
                 // Get timezone from Open-Meteo timezone API
                 return fetch(`https://timeapi.io/api/TimeZone/coordinate?latitude=${latitude}&longitude=${longitude}`);
@@ -156,7 +170,9 @@ function getCityName(latitude, longitude) {
                 userTimezone = data.timeZone;
                 
                 // Update timezone display
-                timezoneElement.textContent = `${userCity} time (${userTimezone})`;
+                if (timezoneElement) {
+                    timezoneElement.textContent = `${userCity} time (${userTimezone})`;
+                }
                 
                 // Update time with the correct timezone
                 updateTime();
@@ -171,8 +187,13 @@ function getCityName(latitude, longitude) {
             userTimezone = null;
             
             // Update display with minimal information
-            locationCityElement.textContent = "Location details unavailable";
-            timezoneElement.textContent = "Local time";
+            if (locationCityElement) {
+                locationCityElement.textContent = "Location details unavailable";
+            }
+            
+            if (timezoneElement) {
+                timezoneElement.textContent = "Local time";
+            }
         });
 }
 
@@ -250,8 +271,13 @@ function getWeatherData(latitude, longitude) {
                 { description: "Unknown conditions", icon: "🌈" };
             
             // Update weather widget
-            weatherIcon.textContent = weatherInfo.icon;
-            temperature.textContent = `${temp}°C`;
+            if (weatherIcon) {
+                weatherIcon.textContent = weatherInfo.icon;
+            }
+            
+            if (temperature) {
+                temperature.textContent = `${temp}°C`;
+            }
             
             // Add UV index and rain chance to the condition display
             let uvDescription = "Low";
@@ -260,11 +286,14 @@ function getWeatherData(latitude, longitude) {
             else if (uvIndex > 7 && uvIndex <= 10) uvDescription = "Very High";
             else if (uvIndex > 10) uvDescription = "Extreme";
             
-            condition.innerHTML = `
-                ${weatherInfo.description} (${windSpeed} km/h wind)<br>
-                UV: ${uvIndex} (${uvDescription})<br>
-                Rain: ${rainChance}%
-            `;
+            if (condition) {
+                condition.innerHTML = `
+                    ${weatherInfo.description}<br>
+                    Wind: ${windSpeed} km/h<br>
+                    UV: ${uvIndex} (${uvDescription})<br>
+                    Rain: ${rainChance}%
+                `;
+            }
             
             // Create hourly forecast chart
             createWeatherForecastChart(data.hourly, weatherChart);
@@ -273,7 +302,9 @@ function getWeatherData(latitude, longitude) {
             if (!userTimezone && data.timezone) {
                 userTimezone = data.timezone;
                 const timezoneElement = document.getElementById('timezone');
-                timezoneElement.textContent = userTimezone;
+                if (timezoneElement) {
+                    timezoneElement.textContent = userTimezone;
+                }
                 updateTime();
             }
         })
@@ -286,7 +317,9 @@ function getWeatherData(latitude, longitude) {
 // Function to create weather forecast chart
 function createWeatherForecastChart(hourlyData, chartElement) {
     // Clear previous chart
-    chartElement.innerHTML = '';
+    if (chartElement) {
+        chartElement.innerHTML = '';
+    }
     
     // Get current hour
     const now = new Date();
@@ -336,7 +369,9 @@ function createWeatherForecastChart(hourlyData, chartElement) {
         // Append elements
         bar.appendChild(tempValue);
         bar.appendChild(timeLabel);
-        chartElement.appendChild(bar);
+        if (chartElement) {
+            chartElement.appendChild(bar);
+        }
     }
 }
 
@@ -359,7 +394,7 @@ function getAirQualityData(latitude, longitude) {
     }
     
     // Open-Meteo Air Quality API URL with hourly data
-    const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,pm10,pm2_5,nitrogen_dioxide,ozone&hourly=european_aqi,pm10,pm2_5`;
+    const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,pm10,pm2_5,aerosol_optical_depth&hourly=european_aqi,pm10,pm2_5,aerosol_optical_depth`;
     
     fetch(airQualityUrl)
         .then(response => {
@@ -376,6 +411,7 @@ function getAirQualityData(latitude, longitude) {
             const aqi = currentAirQuality.european_aqi;
             const pm10 = currentAirQuality.pm10;
             const pm2_5 = currentAirQuality.pm2_5;
+            const aod = currentAirQuality.aerosol_optical_depth;
             
             // Determine air quality level and icon
             let qualityLevel, icon;
@@ -401,9 +437,17 @@ function getAirQualityData(latitude, longitude) {
             }
             
             // Update air quality widget
-            airQualityIcon.textContent = icon;
-            airQualityIndex.textContent = aqi;
-            airQualityQuality.textContent = `${qualityLevel} (PM2.5: ${pm2_5.toFixed(1)}, PM10: ${pm10.toFixed(1)})`;
+            if (airQualityIcon) {
+                airQualityIcon.textContent = icon;
+            }
+            
+            if (airQualityIndex) {
+                airQualityIndex.textContent = aqi;
+            }
+            
+            if (airQualityQuality) {
+                airQualityQuality.innerHTML = `${qualityLevel}<br> PM2.5: ${pm2_5.toFixed(1)}<br> PM10: ${pm10.toFixed(1)}<br> AOD: ${aod.toFixed(2)}`;
+            }
             
             // Create hourly air quality forecast chart
             createAirQualityForecastChart(data.hourly, airQualityChart);
@@ -417,7 +461,9 @@ function getAirQualityData(latitude, longitude) {
 // Function to create air quality forecast chart
 function createAirQualityForecastChart(hourlyData, chartElement) {
     // Clear previous chart
-    chartElement.innerHTML = '';
+    if (chartElement) {
+        chartElement.innerHTML = '';
+    }
     
     // Get current hour
     const now = new Date();
@@ -461,8 +507,210 @@ function createAirQualityForecastChart(hourlyData, chartElement) {
         // Append elements
         bar.appendChild(aqiValue);
         bar.appendChild(timeLabel);
-        chartElement.appendChild(bar);
+        if (chartElement) {
+            chartElement.appendChild(bar);
+        }
     }
+}
+
+// Function to fetch and display a random fact
+function fetchRandomFact() {
+    const randomFactElement = document.getElementById('random-fact');
+    
+    // Check if we have a cached fact and it's still valid
+    const cachedFact = localStorage.getItem('randomFact');
+    const cachedTimestamp = localStorage.getItem('randomFactTimestamp');
+    const currentTime = new Date().getTime();
+    
+    // Detailed logging for debugging
+    console.group('Random Fact Fetch');
+    console.log('Current Time:', new Date(currentTime).toLocaleString());
+    console.log('Cached Fact:', cachedFact);
+    console.log('Cached Timestamp:', cachedTimestamp ? new Date(parseInt(cachedTimestamp)).toLocaleString() : 'No timestamp');
+    
+    // Check if cached fact exists and is less than 5 minutes old
+    if (cachedFact && cachedTimestamp) {
+        const timeDiff = currentTime - parseInt(cachedTimestamp);
+        console.log('Time Difference:', timeDiff, 'ms');
+        
+        if (timeDiff < 300000) {  // 5 minutes = 300000 milliseconds
+            console.log('Using cached fact (within 5 minutes)');
+            if (randomFactElement) {
+                randomFactElement.textContent = cachedFact;
+            }
+            console.groupEnd();
+            return;
+        }
+        
+        console.log('Cached fact is older than 5 minutes, fetching new fact');
+    } else {
+        console.log('No cached fact found, fetching new fact');
+    }
+    
+    // If no valid cached fact, fetch a new one
+    fetch('https://uselessfacts.jsph.pl/random.json', {
+        cache: 'no-store'  // Ensure fresh fetch
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Store the fact and current timestamp in localStorage
+            const fact = data.text;
+            const newTimestamp = new Date().getTime();
+            
+            try {
+                localStorage.setItem('randomFact', fact);
+                localStorage.setItem('randomFactTimestamp', newTimestamp.toString());
+                
+                console.log('New fact stored:', fact);
+                console.log('New timestamp:', new Date(newTimestamp).toLocaleString());
+            } catch (storageError) {
+                console.error('Error storing fact in localStorage:', storageError);
+            }
+            
+            // Display the fact
+            if (randomFactElement) {
+                randomFactElement.textContent = fact;
+            }
+            console.groupEnd();
+        })
+        .catch(error => {
+            console.error('Error fetching random fact:', error);
+            
+            // Fallback to cached fact if available
+            const cachedFact = localStorage.getItem('randomFact');
+            if (cachedFact) {
+                if (randomFactElement) {
+                    randomFactElement.textContent = cachedFact;
+                }
+                console.log('Falling back to cached fact');
+            } else {
+                // If no cached fact, show error message
+                if (randomFactElement) {
+                    randomFactElement.textContent = "Could not fetch a fact";
+                }
+                console.log('No cached fact available');
+            }
+            
+            console.groupEnd();
+        });
+}
+
+// Function to fetch and display Google Trends
+function fetchGoogleTrends() {
+    const trendingListElement = document.getElementById('trending-list');
+    
+    // Check if we have cached trends and if they're still valid
+    const cachedTrends = localStorage.getItem('googleTrends');
+    const cachedTimestamp = localStorage.getItem('googleTrendsTimestamp');
+    const currentTime = new Date().getTime();
+    
+    // Detailed logging for debugging
+    console.group('Google Trends Fetch');
+    console.log('Current Time:', new Date(currentTime).toLocaleString());
+    
+    // Check if cached trends exist and are less than 5 minutes old
+    if (cachedTrends && cachedTimestamp) {
+        const timeDiff = currentTime - parseInt(cachedTimestamp);
+        console.log('Time Difference:', timeDiff, 'ms');
+        
+        if (timeDiff < 30000) {  // 5 minutes = 30000 milliseconds
+            console.log('Using cached trends (within 5 minutes)');
+            if (trendingListElement) {
+                trendingListElement.innerHTML = cachedTrends;
+            }
+            console.groupEnd();
+            return;
+        }
+        
+        console.log('Cached trends are older than 1 hour, fetching new trends');
+    } else {
+        console.log('No cached trends found, fetching new trends');
+    }
+    
+    // We need to use a proxy to avoid CORS issues with the RSS feed
+    const corsProxy = 'https://api.allorigins.win/raw?url=';
+    const trendsUrl = 'https://trends.google.com/trending/rss?geo=VN';
+    const encodedUrl = encodeURIComponent(trendsUrl);
+    
+    fetch(`${corsProxy}${encodedUrl}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Parse the XML
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, 'text/xml');
+            const items = xmlDoc.querySelectorAll('item');
+            
+            // Create HTML for trends
+            let trendsHtml = '';
+            
+            // Limit to 9 trends
+            const maxTrends = Math.min(items.length, 9);
+            
+            for (let i = 0; i < maxTrends; i++) {
+                const item = items[i];
+                const title = item.querySelector('title')?.textContent || 'Unknown Trend';
+                
+                // Look for ht:news_item_url specifically
+                let articleLink = '#';
+                const newsItemUrl = item.querySelector('ht\\:news_item_url, news_item_url');
+                if (newsItemUrl) {
+                    articleLink = newsItemUrl.textContent;
+                }
+                
+                // Fallback to other link types if news_item_url is not found
+                if (articleLink === '#') {
+                    const links = item.querySelectorAll('link');
+                    if (links.length > 1) {
+                        articleLink = links[1].textContent;
+                    }
+                }
+                
+                // Create a numbered list item
+                trendsHtml += `
+                    <li class="trending-item">
+                        <span class="trend-number">${i + 1}.</span>
+                        <a href="${articleLink}" target="_blank">${title}</a>
+                    </li>
+                `;
+            }
+            
+            // Update the trending list
+            if (trendingListElement) {
+                trendingListElement.innerHTML = trendsHtml;
+                
+                // Cache the trends
+                localStorage.setItem('googleTrends', trendsHtml);
+                localStorage.setItem('googleTrendsTimestamp', currentTime.toString());
+                console.log('New trends cached at:', new Date(currentTime).toLocaleString());
+            }
+            
+            console.groupEnd();
+        })
+        .catch(error => {
+            console.error('Error fetching Google Trends:', error);
+            
+            // Fallback to cached trends if available
+            if (cachedTrends && trendingListElement) {
+                trendingListElement.innerHTML = cachedTrends;
+                console.log('Falling back to cached trends');
+            } else if (trendingListElement) {
+                // If no cached trends, show error message
+                trendingListElement.innerHTML = '<li class="trending-item">Could not fetch trends</li>';
+                console.log('No cached trends available');
+            }
+            
+            console.groupEnd();
+        });
 }
 
 // Function to initialize the dashboard
@@ -470,119 +718,54 @@ function initDashboard() {
     // Update the clock and date
     updateTime();
     
-    // Initialize Pomodoro timer
-    initPomodoro();
-    
     // Initialize task list with local storage
     initTasks();
     
     // Save notes to local storage
     initNotes();
     
+    // Fetch random fact
+    fetchRandomFact();
+    
+    // Fetch Google Trends
+    fetchGoogleTrends();
+    
     console.log('Dashboard initialized successfully!');
 }
 
 // Function to update the time and date displays
 function updateTime() {
+    const now = new Date();
     const clockElement = document.getElementById('clock');
     const secondsElement = document.getElementById('seconds');
     const dateElement = document.getElementById('date');
-    const timezoneElement = document.getElementById('timezone');
+
+    // Time formatting
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
     
-    if (clockElement && secondsElement) {
-        const now = new Date();
-        
-        // If we have user timezone, use it for displaying time
-        let timeString, secondsString;
-        if (userTimezone) {
-            try {
-                const options = { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: false,
-                    timeZone: userTimezone 
-                };
-                
-                timeString = now.toLocaleTimeString('en-US', options);
-                
-                // Get seconds separately
-                secondsString = now.toLocaleTimeString('en-US', {
-                    second: '2-digit',
-                    timeZone: userTimezone
-                }).slice(-2);
-                
-                // Update timezone display if element exists
-                if (timezoneElement && userCity) {
-                    timezoneElement.textContent = `${userCity} time (${userTimezone})`;
-                } else if (timezoneElement) {
-                    timezoneElement.textContent = userTimezone;
-                }
-            } catch (e) {
-                console.error("Error formatting time with timezone:", e);
-                // Fallback if timezone is invalid
-                timeString = now.toLocaleTimeString([], { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: false
-                });
-                secondsString = now.getSeconds().toString().padStart(2, '0');
-                
-                if (timezoneElement) {
-                    timezoneElement.textContent = "Local time";
-                }
-            }
-        } else {
-            timeString = now.toLocaleTimeString([], { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false
-            });
-            secondsString = now.getSeconds().toString().padStart(2, '0');
-            
-            if (timezoneElement) {
-                timezoneElement.textContent = "Local time";
-            }
-        }
-        
-        clockElement.textContent = timeString;
-        secondsElement.textContent = secondsString;
+    // Clock display
+    if (clockElement) {
+        clockElement.textContent = `${hours}:${minutes}`;
     }
     
-    updateCalendar();
-}
+    if (secondsElement) {
+        secondsElement.textContent = seconds;
+    }
 
-// Function to update the calendar display
-function updateCalendar() {
-    const dateElement = document.getElementById('date');
+    // Date formatting
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     
+    const dayName = days[now.getDay()];
+    const monthName = months[now.getMonth()];
+    const date = now.getDate();
+    const year = now.getFullYear();
+
+    // Update date display
     if (dateElement) {
-        const now = new Date();
-        
-        // If we have user timezone, use it for displaying date
-        let dateString;
-        if (userTimezone) {
-            try {
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    timeZone: userTimezone
-                };
-                
-                dateString = now.toLocaleDateString('en-US', options);
-            } catch (e) {
-                console.error("Error formatting date with timezone:", e);
-                // Fallback if timezone is invalid
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                dateString = now.toLocaleDateString(undefined, options);
-            }
-        } else {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateString = now.toLocaleDateString(undefined, options);
-        }
-        
-        dateElement.textContent = dateString;
+        dateElement.textContent = `${dayName}, ${monthName} ${date}, ${year}`;
     }
 }
 
@@ -596,69 +779,23 @@ function initThemeToggle() {
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme)) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeSwitch.checked = true;
+        if (themeSwitch) {
+            themeSwitch.checked = true;
+        }
     }
     
     // Add event listener for theme toggle
-    themeSwitch.addEventListener('change', function() {
-        if (this.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-}
-
-// Function to initialize Pomodoro timer
-function initPomodoro() {
-    const timerElement = document.getElementById('timer');
-    const startButton = document.getElementById('start-timer');
-    
-    let timeLeft = 25 * 60; // 25 minutes in seconds
-    let timerInterval;
-    let isRunning = false;
-    
-    // Format time as MM:SS
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const secs = (seconds % 60).toString().padStart(2, '0');
-        return `${mins}:${secs}`;
+    if (themeSwitch) {
+        themeSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
     }
-    
-    // Update timer display
-    function updateTimer() {
-        timeLeft--;
-        timerElement.textContent = formatTime(timeLeft);
-        
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerElement.textContent = "00:00";
-            startButton.textContent = "Start";
-            isRunning = false;
-            
-            // Play notification sound or show notification
-            alert("Pomodoro session completed!");
-            
-            // Reset timer
-            timeLeft = 25 * 60;
-            timerElement.textContent = formatTime(timeLeft);
-        }
-    }
-    
-    // Start/pause timer
-    startButton.addEventListener('click', function() {
-        if (!isRunning) {
-            timerInterval = setInterval(updateTimer, 1000);
-            startButton.textContent = "Pause";
-            isRunning = true;
-        } else {
-            clearInterval(timerInterval);
-            startButton.textContent = "Resume";
-            isRunning = false;
-        }
-    });
 }
 
 // Function to initialize tasks with local storage
@@ -669,12 +806,16 @@ function initTasks() {
     // Load saved tasks
     if (savedTasks.length > 0) {
         // Clear default tasks
-        taskList.innerHTML = '';
+        if (taskList) {
+            taskList.innerHTML = '';
+        }
         
         // Add saved tasks
         savedTasks.forEach(task => {
             const taskItem = createTaskElement(task.text, task.completed);
-            taskList.appendChild(taskItem);
+            if (taskList) {
+                taskList.appendChild(taskItem);
+            }
         });
     } else {
         // Set up event listeners for default tasks
@@ -725,11 +866,15 @@ function initNotes() {
     // Load saved notes
     const savedNotes = localStorage.getItem('notes');
     if (savedNotes) {
-        notesTextarea.value = savedNotes;
+        if (notesTextarea) {
+            notesTextarea.value = savedNotes;
+        }
     }
     
     // Save notes when user types
-    notesTextarea.addEventListener('input', function() {
-        localStorage.setItem('notes', this.value);
-    });
+    if (notesTextarea) {
+        notesTextarea.addEventListener('input', function() {
+            localStorage.setItem('notes', this.value);
+        });
+    }
 }
