@@ -618,7 +618,7 @@ function fetchGoogleTrends() {
         const timeDiff = currentTime - parseInt(cachedTimestamp);
         console.log('Time Difference:', timeDiff, 'ms');
         
-        if (timeDiff < 30000) {  // 5 minutes = 30000 milliseconds
+        if (timeDiff < 300000) {  // 5 minutes = 300000 milliseconds
             console.log('Using cached trends (within 5 minutes)');
             if (trendingListElement) {
                 trendingListElement.innerHTML = cachedTrends;
@@ -627,7 +627,7 @@ function fetchGoogleTrends() {
             return;
         }
         
-        console.log('Cached trends are older than 1 hour, fetching new trends');
+        console.log('Cached trends are older than 5 minutes, fetching new trends');
     } else {
         console.log('No cached trends found, fetching new trends');
     }
@@ -747,7 +747,7 @@ function updateTime() {
     
     // Clock display
     if (clockElement) {
-        clockElement.textContent = `${hours}:${minutes}`;
+        clockElement.textContent = `${hours}:${minutes}:`;
     }
     
     if (secondsElement) {

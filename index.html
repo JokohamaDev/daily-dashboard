@@ -13,15 +13,13 @@
     
     <main class="bento-grid">
 
-        <!-- widget - Clock -->
-        <div class="bento-item c2 r1">
-            <h2>Clock</h2>
-            <div class="clock-content">
-                <div class="clock-display">
-                    <span id="clock" class="title">Loading...</span>
-                    <span id="seconds">00</span>
-                </div>
-                <div id="date" class="description">Loading timezone...</div>
+        <!-- widget - Trending -->
+        <div class="bento-item c2 r2">
+            <h2>Trending</h2>
+            <div class="trending-content">
+                <ul id="trending-list" class="trending-list">
+                    <li class="trending-item">Loading trends...</li>
+                </ul>
             </div>
         </div>
 
@@ -32,27 +30,15 @@
             <div id="random-fact" class="description">Loading fact...</div>
         </div>
 
-        <!-- widget - Light Switch -->
-        <div class="bento-item c2 r1">
-            <h2>Dark Theme</h2>
-            <div class="theme-toggle-container">
-                <label class="theme-toggle" for="theme-switch">
-                    <input type="checkbox" id="theme-switch">
-                    <span class="slider round"></span>
-                </label>
+        <!-- widget - Location -->
+        <div class="bento-item c4 r1">
+            <h2>Location</h2>
+            <div class="location-content">
+                <div id="location-city" class="title">Loading city...</div>
+                <div id="location" class="description">Loading coordinates...</div>
             </div>
         </div>
 
-        <!-- widget - Trending -->
-        <div class="bento-item c2 r2">
-            <h2>Trending</h2>
-            <div class="trending-content">
-                <ul id="trending-list" class="trending-list">
-                    <li class="trending-item">Loading trends...</li>
-                </ul>
-            </div>
-        </div>
-        
         <!-- widget - Weather -->
         <div class="bento-item c2 r2">
             <h2>Weather</h2>
@@ -71,6 +57,25 @@
             </div>
         </div>
 
+        <!-- widget - Clock -->
+        <div class="bento-item c2 r1">
+            <h2>Clock</h2>
+            <div class="clock-content">
+                <div class="clock-display">
+                    <span id="clock" class="title">Loading...</span>
+                    <span id="seconds">00</span>
+                </div>
+                <div id="date" class="description">Loading timezone...</div>
+            </div>
+        </div>
+
+        <!-- widget - Name Badge -->
+        <div class="bento-item c4 r1 badge">
+            <div class="badge-content">
+                <h1>My Dashboard</h1>
+            </div>
+        </div>
+
         <!-- widget - Air Quality -->
         <div class="bento-item c2 r2">
             <h2>Air Quality</h2>
@@ -86,15 +91,6 @@
                 <div class="forecast-chart" id="air-quality-chart">
                     <!-- Air quality chart will be generated here -->
                 </div>
-            </div>
-        </div>
-
-        <!-- widget - Location -->
-        <div class="bento-item c4 r1">
-            <h2>Location</h2>
-            <div class="location-content">
-                <div id="location-city" class="title">Loading city...</div>
-                <div id="location" class="description">Loading coordinates...</div>
             </div>
         </div>
         
@@ -117,21 +113,18 @@
                 <textarea placeholder="Write your notes here..."></textarea>
             </div>
         </div>
-        
-        <!-- widget - News -->
-        <div class="bento-item c6 r2">
-            <h2>Latest News</h2>
-            <div class="news-content">
-                <div class="news-item">
-                    <h3>Tech Update</h3>
-                    <p>New advancements in AI technology announced today.</p>
-                </div>
-                <div class="news-item">
-                    <h3>Science News</h3>
-                    <p>Researchers discover potential breakthrough in renewable energy.</p>
-                </div>
+
+        <!-- widget - Light Switch -->
+        <div class="bento-item c2 r1">
+            <h2>Dark Theme</h2>
+            <div class="theme-toggle-container">
+                <label class="theme-toggle" for="theme-switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider round"></span>
+                </label>
             </div>
         </div>
+
     </main>
     
     <footer>
