@@ -17,6 +17,7 @@
         <div class="bento-item c2 r2">
             <h2>Trending</h2>
             <div class="trending-content">
+                <div class="title">Trending</div>
                 <ul id="trending-list" class="trending-list">
                     <li class="trending-item">Loading trends...</li>
                 </ul>
@@ -26,14 +27,16 @@
         <!-- widget - RandomFact -->
         <div class="bento-item c4 r1">
             <h2>Random Fact</h2>
-            <div class="title">🤓</div>
-            <div id="random-fact" class="description">Loading fact...</div>
+            <div class="bento-content">
+                <div class="title">Random Fact 🤓</div>
+                <div id="random-fact" class="description">Loading fact...</div>
+            </div>
         </div>
 
         <!-- widget - Location -->
         <div class="bento-item c4 r1">
             <h2>Location</h2>
-            <div class="location-content">
+            <div class="bento-content">
                 <div id="location-city" class="title">Loading city...</div>
                 <div id="location" class="description">Loading coordinates...</div>
             </div>
@@ -60,7 +63,7 @@
         <!-- widget - Clock -->
         <div class="bento-item c2 r1">
             <h2>Clock</h2>
-            <div class="clock-content">
+            <div class="bento-content">
                 <div class="clock-display">
                     <span id="clock" class="title">Loading...</span>
                     <span id="seconds">00</span>
@@ -71,8 +74,9 @@
 
         <!-- widget - Name Badge -->
         <div class="bento-item c4 r1 badge">
-            <div class="badge-content">
-                <h1>My Dashboard</h1>
+            <div class="bento-content">
+                <h1>Daily Dashboard</h1>
+                <div class="description">by Jokohama</div>
             </div>
         </div>
 
@@ -98,11 +102,11 @@
         <div class="bento-item c4 r2">
             <h2>Tasks</h2>
             <div class="tasks-content">
-                <div id="tasks-list"></div>
                 <div class="task-input-container">
-                    <input type="text" id="task-input" placeholder="Add a new task...">
-                    <button id="add-task-btn">+</button>
+                    <input type="text" id="task-input" placeholder="Enter a new task">
+                    <button id="add-task-btn">Add Task</button>
                 </div>
+                <ul id="task-list" class="task-list"></ul>
             </div>
         </div>
         
@@ -117,11 +121,12 @@
         <!-- widget - Light Switch -->
         <div class="bento-item c2 r1">
             <h2>Dark Theme</h2>
-            <div class="theme-toggle-container">
+            <div class="bento-content">
                 <label class="theme-toggle" for="theme-switch">
                     <input type="checkbox" id="theme-switch">
                     <span class="slider round"></span>
                 </label>
+                <div class="description">Dark Theme</div>
             </div>
         </div>
 
