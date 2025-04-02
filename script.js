@@ -15,10 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Task Management Functions
     loadTasks();
     
-    // Call the function when the page loads
-    // Retry fetching movie every hour
-    fetchRandomMovie();
-    setInterval(fetchRandomMovie, 3600000);
+    // Refresh fetch
+    setInterval(fetchRandomMovie, 1800000);
+    setInterval(fetchRandomFact, 1800000);
+    setInterval(fetchMarketData, 60000);
+    setInterval(fetchGoogleTrends, 1800000);
+
+    // Auto-update weather and air quality every 30 minutes
+    getWeatherData(userLatitude, userLongitude);
+    setInterval(() => getWeatherData(userLatitude, userLongitude), 1800000);
+
+    getAirQualityData(userLatitude, userLongitude);
+    setInterval(() => getAirQualityData(userLatitude, userLongitude), 1800000);
 });
 
 // Global variables for location data
@@ -808,11 +816,55 @@ function fetchRandomMovie() {
     tryFetchWithProxy();
 }
 
-// Fetch movie when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    fetchRandomMovie();
-    setInterval(fetchRandomMovie, 600000); // Refresh every 10 minutes
-});
+// Function to fetch and display market data
+function fetchMarketData() {
+    const marketWidget = document.querySelector('.market-content');
+    
+    // Validate market widget exists
+    if (!marketWidget) {
+        console.error('Market widget not found');
+        return;
+    }
+
+    // CryptoCompare API endpoint
+    const apiUrl = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,C98&tsyms=USD';
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Extract raw data
+            const rawData = data.RAW;
+            
+            // Create market data HTML
+            const marketHTML = Object.entries(rawData).map(([symbol, details]) => {
+                const price = details.USD.PRICE.toFixed(2);
+                const changePercent = details.USD.CHANGEPCT24HOUR.toFixed(2);
+                const changeClass = changePercent >= 0 ? 'positive' : 'negative';
+                
+                return `
+                    <div class="market-item">
+                        <span class="symbol">${symbol}</span>
+                        <span class="price">$${price}</span>
+                        <span class="change ${changeClass}">${changePercent}%</span>
+                    </div>
+                `;
+            }).join('');
+
+            // Update market widget
+            marketWidget.innerHTML = marketHTML;
+
+            console.log('Market data fetched successfully');
+        })
+        .catch(error => {
+            console.error('Error fetching market data:', error);
+            marketWidget.innerHTML = 'Failed to load market data';
+        });
+}
 
 // Function to initialize the dashboard
 function initDashboard() {
@@ -830,6 +882,12 @@ function initDashboard() {
     
     // Fetch Google Trends
     fetchGoogleTrends();
+    
+    // Fetch market data
+    fetchMarketData();
+
+    // Fetch movie
+    fetchRandomMovie();
     
     console.log('Dashboard initialized successfully!');
 }
