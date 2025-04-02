@@ -5,7 +5,7 @@
     --card-bg: #f5f7f9;
     --text-color: #333333;
     --heading-color: #2c3e50;
-    --accent-color: #0BB8DA;
+    --accent-color: #0AC2C2;
     --border-color: #e5e5e5;
 }
 
@@ -15,7 +15,7 @@
     --card-bg: #111111;
     --text-color: #e0e0e0;
     --heading-color: #f0f0f0;
-    --accent-color: #0BB8DA;
+    --accent-color: #0AC2C2;
     --border-color: #333333;
 }
 
@@ -191,15 +191,38 @@ input:checked + .slider:before {
 /* Widget badge styles */
 
 .badge {
-    background-image: url(assets/bg_badge_1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    background-image: url(assets/bg_badge_1.jpg);
 }
 
-.badge h1 {
-    color: white;
+.badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 0, 0, 0), 
+        rgba(0, 0, 0, 0.5)
+    );
+    z-index: 1;
+}
+
+.badge .bento-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
+}
+
+.bento-content h1 {
+    color: white;
 }
 
 /* Weather widget styles */
@@ -290,25 +313,24 @@ textarea {
 
 .weather-forecast h3 {
     font-size: 1rem;
-    margin-bottom: 10px;
     opacity: 0.8;
 }
 
 .forecast-chart {
-    height: 100px;
+    height: 144px;
     width: 100%;
     overflow-x: auto;
     display: flex;
     align-items: flex-end;
     gap: 0.25rem;
-    padding: 1.5rem 0;
+    padding: 1rem 0 1.5rem 0;
 }
 
 .forecast-bar {
     flex: 1;
-    min-width: 30px;
+    min-width: 32px;
     background: var(--accent-color);
-    border-radius: 3px 3px 0 0;
+    border-radius: 0.25rem 0.25rem 0 0;
     position: relative;
     transition: height 0.3s ease;
 }
@@ -325,7 +347,7 @@ textarea {
 
 .forecast-bar-value {
     position: absolute;
-    top: -20px;
+    top: -36px;
     left: 0;
     right: 0;
     text-align: center;
@@ -344,7 +366,7 @@ textarea {
 }
 
 .air-quality-bar {
-    background: linear-gradient(to right, #00e400, #ffff00, #ff7e00, #ff0000, #99004c, #7e0023);
+    /* background: linear-gradient(to right, #00e400, #ffff00, #ff7e00, #ff0000, #99004c, #7e0023); */
     opacity: 0.8;
 }
 
