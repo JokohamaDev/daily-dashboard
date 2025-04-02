@@ -47,7 +47,6 @@ header {
     padding: 2rem;
     background-color: var(--card-bg);
     border-radius: 1rem;
-    /* box-shadow: var(--shadow); */
 }
 
 h1, h2, h3 {
@@ -55,7 +54,7 @@ h1, h2, h3 {
 }
 
 input, textarea {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 /* Bento Grid Layout */
@@ -70,8 +69,7 @@ input, textarea {
     background-color: var(--card-bg);
     border-radius: 1rem;
     padding: 2rem;
-    /* box-shadow: var(--shadow); */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     overflow: hidden;
 }
 
@@ -369,7 +367,6 @@ textarea {
 }
 
 .air-quality-bar {
-    /* background: linear-gradient(to right, #00e400, #ffff00, #ff7e00, #ff0000, #99004c, #7e0023); */
     opacity: 0.8;
 }
 
@@ -382,8 +379,6 @@ textarea {
 
 .trending-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .trending-item {
@@ -469,8 +464,6 @@ textarea {
 
 .task-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
     overflow-y: auto;
     flex-grow: 1;
 }
@@ -509,6 +502,46 @@ textarea {
     font-weight: bold;
 }
 
+/* Market widget styles */
+
+.market-content {
+    display: flex;
+}
+
+.market-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-right: 1px solid var(--border-color);
+}
+
+.market-item:last-child {
+    border-right: none;
+}
+
+.market-item .symbol {
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.market-item .price {
+    font-variant-numeric: tabular-nums;
+}
+
+.market-item .change {
+    font-weight: bold;
+}
+
+.market-item .change.positive {
+    color: #0AC247;
+}
+
+.market-item .change.negative {
+    color: #F2330D;
+}
+
 /* Loading animations */
 @keyframes pulse {
     0% { opacity: 0.6; }
@@ -531,12 +564,15 @@ footer {
     padding: 2rem;
     background-color: var(--card-bg);
     border-radius: 1rem;
-    /* box-shadow: var(--shadow); */
     margin-top: 1rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
+    .bento-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
     .title {
         font-size: 1.5rem;
     }
@@ -589,44 +625,4 @@ footer {
         flex-direction: column;
         gap: 1rem;
     }
-}
-
-/* Market widget styles */
-
-.market-content {
-    display: flex;
-}
-
-.market-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border-right: 1px solid var(--border-color);
-}
-
-.market-item:last-child {
-    border-right: none;
-}
-
-.market-item .symbol {
-    font-weight: bold;
-    flex-grow: 1;
-}
-
-.market-item .price {
-    font-variant-numeric: tabular-nums;
-}
-
-.market-item .change {
-    font-weight: bold;
-}
-
-.market-item .change.positive {
-    color: #0AC247;
-}
-
-.market-item .change.negative {
-    color: #F2330D;
 }
