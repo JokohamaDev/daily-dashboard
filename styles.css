@@ -387,7 +387,7 @@ textarea {
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.75rem;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .trending-item:last-child {
@@ -455,7 +455,7 @@ textarea {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 #add-task-btn:hover {
