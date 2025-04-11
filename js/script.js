@@ -5,15 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update the time every second
     setInterval(updateTime, 1000);
-    
-    // Initialize theme toggle
-    initThemeToggle();
-    
+
     // Request user's location
     requestLocation();
-    
-    // Task Management Functions
-    loadTasks();
     
     // Refresh fetch
     setInterval(fetchRandomMovie, 1800000);
@@ -270,7 +264,7 @@ function getWeatherData(latitude, longitude) {
                 66: { description: "Light freezing rain", icon: "🌧️❄️" },
                 67: { description: "Heavy freezing rain", icon: "🌧️❄️" },
                 71: { description: "Slight snow fall", icon: "🌨️" },
-                73: { description: "Moderate snow fall", icon: "🌨️" },
+                73: { description: "Moderate snow fall", icon: "❄️" },
                 75: { description: "Heavy snow fall", icon: "❄️" },
                 77: { description: "Snow grains", icon: "❄️" },
                 80: { description: "Light rain showers", icon: "🌦️" },
@@ -356,7 +350,9 @@ function createWeatherForecastChart(hourlyData, chartElement) {
             45: "🌫️", 48: "🌫️", 
             51: "🌦️", 53: "🌧️", 55: "🌧️", 
             61: "🌧️", 63: "🌧️", 65: "🌊", 
-            80: "🌦️", 81: "🌧️", 82: "🌊"
+            71: "🌨️", 73: "❄️", 75: "❄️", 77: "❄️", 
+            80: "🌦️", 81: "🌧️", 82: "🌊", 85: "🌨️", 86: "❄️",
+            95: "⛈️", 96: "⛈️", 99: "⛈️"
         };
         
         const icon = weatherIcons[weatherCode] || "🌈";
@@ -531,6 +527,7 @@ function createAirQualityForecastChart(hourlyData, chartElement) {
 
 // Function to initialize the dashboard
 function initDashboard() {
+    initThemeToggle();
     updateTime();
     loadTasks();
     initNotes();
