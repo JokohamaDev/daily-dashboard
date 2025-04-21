@@ -52,8 +52,8 @@ function fetchGoogleTrends() {
             // Create HTML for trends
             let trendsHtml = '';
             
-            // Limit to 9 trends
-            const maxTrends = Math.min(items.length, 9);
+            // Limit to 8 trends
+            const maxTrends = Math.min(items.length, 8);
             
             for (let i = 0; i < maxTrends; i++) {
                 const item = items[i];

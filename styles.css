@@ -362,7 +362,6 @@ textarea {
 
 .air-quality-forecast h3 {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
     opacity: 0.8;
 }
 
@@ -438,7 +437,7 @@ textarea {
     margin-bottom: 1rem;
 }
 
-#task-input {
+.style-input {
     flex-grow: 1;
     padding: 0.5rem 1rem;
     margin-right: 0.5rem;
@@ -448,7 +447,7 @@ textarea {
     color: var(--text-color);
 }
 
-#add-task-btn {
+.style-btn {
     padding: 0.5rem 1rem;
     background-color: var(--accent-color);
     color: white;
@@ -458,7 +457,7 @@ textarea {
     transition: all 0.3s ease;
 }
 
-#add-task-btn:hover {
+.style-btn:hover {
     opacity: 0.9;
 }
 
@@ -504,6 +503,11 @@ textarea {
 
 /* Market widget styles */
 
+.market-input-container {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1rem;
+}
 .market-content {
     display: flex;
 }
@@ -513,7 +517,7 @@ textarea {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
     border-right: 1px solid var(--border-color);
 }
 
